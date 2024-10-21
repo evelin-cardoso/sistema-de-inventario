@@ -1,0 +1,61 @@
+-- Criação da tabela de Categorias
+CREATE TABLE categorias (
+    id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+    nome_categoria VARCHAR(100) NOT NULL,
+    descricao TEXT
+);
+
+-- Criação da tabela de Fornecedores
+CREATE TABLE fornecedores (
+    id_fornecedor INT AUTO_INCREMENT PRIMARY KEY,
+    nome_fornecedor VARCHAR(100) NOT NULL,
+    telefone VARCHAR(20),
+    email VARCHAR(100) UNIQUE
+);
+
+-- Criação da tabela de Produtos
+CREATE TABLE produtos (
+    id_produto INT AUTO_INCREMENT PRIMARY KEY,
+    nome_produto VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    preco DECIMAL(10, 2),
+    quantidade_em_estoque INT,
+    id_categoria INT,
+    id_fornecedor INT,
+    FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria),
+    FOREIGN KEY (id_fornecedor) REFERENCES fornecedores(id_fornecedor)
+);
+
+-- Criação da tabela de Movimentações de Estoque
+CREATE TABLE movimentacoes_estoque (
+    id_movimentacao INT AUTO_INCREMENT PRIMARY KEY,
+    id_produto INT,
+    tipo_movimentacao ENUM('entrada', 'saida') NOT NULL,
+    quantidade INT NOT NULL,
+    data_movimentacao DATE NOT NULL,
+    FOREIGN KEY (id_produto) REFERENCES produtos(id_produto)
+);
+
+-- Inserir categorias
+INSERT INTO categorias (nome_categoria, descricao) VALUES 
+('Eletrônicos', 'Dispositivos eletrônicos diversos'),
+('Móveis', 'Móveis para escritório e residência'),
+('Ferramentas', 'Ferramentas manuais e elétricas');
+
+-- Inserir fornecedores
+INSERT INTO fornecedores (nome_fornecedor, telefone, email) VALUES 
+('Fornecedor Tech', '48999999999', 'tech@fornecedor.com'),
+('Móveis e Cia', '48988888888', 'moveis@fornecedor.com'),
+('Ferramentas BR', '48977777777', 'ferramentas@fornecedor.com');
+
+-- Inserir produtos
+INSERT INTO produtos (nome_produto, descricao, preco, quantidade_em_estoque, id_categoria, id_fornecedor) VALUES 
+('Laptop X', 'Laptop com processador X', 3500.00, 10, 1, 1),
+('Mesa de Escritório', 'Mesa de madeira para escritório', 550.00, 5, 2, 2),
+('Furadeira', 'Furadeira elétrica 500W', 150.00, 20, 3, 3);
+
+-- Inserir movimentações de estoque
+INSERT INTO movimentacoes_estoque (id_produto, tipo_movimentacao, quantidade, data_movimentacao) VALUES 
+(1, 'entrada', 5, '2024-10-01'),
+(2, 'saida', 2, '2024-10-02'),
+(3, 'entrada', 10, '2024-10-03');
