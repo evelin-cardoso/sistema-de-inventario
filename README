@@ -1,0 +1,11 @@
+Sistema de Inventário
+
+Este projeto é um Sistema de Inventário construído com MySQL. Ele oferece uma estrutura para gerenciar produtos, categorias, fornecedores e as movimentações de estoque, tanto de entradas quanto de saídas.
+
+Estrutura do Banco de Dados
+O banco de dados consiste nas seguintes tabelas:
+
+categorias: Armazena as categorias dos produtos.
+fornecedores: Contém os dados dos fornecedores.
+produtos: Registra as informações dos produtos no inventário.
+movimentacoes_estoque: Registra as movimentações (entradas e saídas) dos produtos.
